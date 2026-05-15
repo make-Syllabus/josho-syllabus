@@ -178,11 +178,9 @@ window.openDocModal = function(school, type, pdfFile) {
       <button class="modal-close-btn" onclick="closeModal()" aria-label="閉じる"><i class="ti ti-x" aria-hidden="true"></i></button>
     </div>
     <div class="modal-body">
-      <div class="m-pdf-area">
-        <i class="ti ti-file-type-pdf" aria-hidden="true"></i>
-        <p>${escHtml(school)}の${escHtml(type)}PDFがここに表示されます。<br>PDFファイルを <code>pdf/${escHtml(pdfFile)}</code> に配置してください。</p>
+      <div style="padding-top:0.5rem;">
         <button class="m-pdf-btn" onclick="window.open('pdf/${escHtml(pdfFile)}','_blank')">
-          <i class="ti ti-external-link" aria-hidden="true"></i>PDFを開く
+          <i class="ti ti-file-description" aria-hidden="true"></i>詳細を見る
         </button>
       </div>
     </div>
