@@ -1,85 +1,112 @@
-"subjects": [
-  {
-    "id": "kokugo",
-    "name": "国語",
-    "icon": "ti-book-2",
-    "options": [
-      { "label": "中学", "pdfFile": "goal_kokugo_jhs.pdf" },
-      { "label": "高校", "pdfFile": "goal_kokugo_hs.pdf" }
-    ]
-  },
-  {
-    "id": "sugaku",
-    "name": "数学",
-    "icon": "ti-math-function",
-    "options": [
-      { "label": "中学", "pdfFile": "goal_sugaku_jhs.pdf" },
-      { "label": "高校", "pdfFile": "goal_sugaku_hs.pdf" }
-    ]
-  },
-  {
-    "id": "eigo",
-    "name": "英語",
-    "icon": "ti-language",
-    "options": [
-      { "label": "中学", "pdfFile": "goal_eigo_jhs.pdf" },
-      { "label": "高校", "pdfFile": "goal_eigo_hs.pdf" }
-    ]
-  },
-  {
-    "id": "rika",
-    "name": "理科",
-    "icon": "ti-flask",
-    "options": [
-      { "label": "中学", "pdfFile": "goal_rika_jhs.pdf" },
-      { "label": "高校", "pdfFile": "goal_rika_hs.pdf" }
-    ]
-  },
-  {
-    "id": "shakai",
-    "name": "社会",
-    "icon": "ti-building-bank",
-    "options": [
-      { "label": "中学", "pdfFile": "goal_shakai_jhs.pdf" },
-      { "label": "高校", "pdfFile": "goal_shakai_hs.pdf" }
-    ]
-  },
-  {
-    "id": "taiiku",
-    "name": "保健体育",
-    "icon": "ti-run",
-    "options": [
-      { "label": "中学", "pdfFile": "goal_taiiku_jhs.pdf" },
-      { "label": "高校（体育）", "pdfFile": "goal_taiiku_hs.pdf" },
-      { "label": "高校（保健）", "pdfFile": "goal_hoken_hs.pdf" }
-    ]
-  },
-  {
-    "id": "geijutsu",
-    "name": "芸術科",
-    "icon": "ti-palette",
-    "options": [
-      { "label": "中学", "pdfFile": "goal_geijutsu_jhs.pdf" },
-      { "label": "高校（音楽）", "pdfFile": "goal_ongaku_hs.pdf" },
-      { "label": "高校（美術）", "pdfFile": "goal_bijutsu_hs.pdf" },
-      { "label": "高校（書道）", "pdfFile": "goal_shodo_hs.pdf" }
-    ]
-  },
-  {
-    "id": "gijutsu",
-    "name": "技術・家庭科",
-    "icon": "ti-tool",
-    "options": [
-      { "label": "中学", "pdfFile": "goal_gijutsu_jhs.pdf" },
-      { "label": "高校（家庭科）", "pdfFile": "goal_katei_hs.pdf" }
-    ]
-  },
-  {
-    "id": "joho",
-    "name": "情報科",
-    "icon": "ti-device-laptop",
-    "options": [
-      { "label": "高校", "pdfFile": "goal_joho_hs.pdf" }
-    ]
-  }
-]
+{
+  "curriculum": [
+    {
+      "id": "c-jhs",
+      "school": "中学校",
+      "type": "カリキュラム配当表",
+      "label": "中1〜中3",
+      "pdfFile": "curriculum_jhs.pdf"
+    },
+    {
+      "id": "c-hs",
+      "school": "高等学校",
+      "type": "教育課程表",
+      "label": "高1〜高3",
+      "pdfFile": "curriculum_hs.pdf"
+    }
+  ],
+  "evaluation": [
+    {
+      "id": "e-common",
+      "school": "中学校・高等学校",
+      "type": "学習評価",
+      "label": "中高共通",
+      "pdfFile": "evaluation_common.pdf"
+    }
+  ],
+  "subjects": [
+    {
+      "id": "kokugo",
+      "name": "国語",
+      "icon": "ti-book-2",
+      "options": [
+        { "label": "中学", "pdfFile": "goal_kokugo_jhs.pdf" },
+        { "label": "高校", "pdfFile": "goal_kokugo_hs.pdf" }
+      ]
+    },
+    {
+      "id": "sugaku",
+      "name": "数学",
+      "icon": "ti-math-function",
+      "options": [
+        { "label": "中学", "pdfFile": "goal_sugaku_jhs.pdf" },
+        { "label": "高校", "pdfFile": "goal_sugaku_hs.pdf" }
+      ]
+    },
+    {
+      "id": "eigo",
+      "name": "英語",
+      "icon": "ti-language",
+      "options": [
+        { "label": "中学", "pdfFile": "goal_eigo_jhs.pdf" },
+        { "label": "高校", "pdfFile": "goal_eigo_hs.pdf" }
+      ]
+    },
+    {
+      "id": "rika",
+      "name": "理科",
+      "icon": "ti-flask",
+      "options": [
+        { "label": "中学", "pdfFile": "goal_rika_jhs.pdf" },
+        { "label": "高校", "pdfFile": "goal_rika_hs.pdf" }
+      ]
+    },
+    {
+      "id": "shakai",
+      "name": "社会",
+      "icon": "ti-building-bank",
+      "options": [
+        { "label": "中学", "pdfFile": "goal_shakai_jhs.pdf" },
+        { "label": "高校", "pdfFile": "goal_shakai_hs.pdf" }
+      ]
+    },
+    {
+      "id": "taiiku",
+      "name": "保健体育",
+      "icon": "ti-run",
+      "options": [
+        { "label": "中学", "pdfFile": "goal_taiiku_jhs.pdf" },
+        { "label": "高校（体育）", "pdfFile": "goal_taiiku_hs.pdf" },
+        { "label": "高校（保健）", "pdfFile": "goal_hoken_hs.pdf" }
+      ]
+    },
+    {
+      "id": "geijutsu",
+      "name": "芸術科",
+      "icon": "ti-palette",
+      "options": [
+        { "label": "中学", "pdfFile": "goal_geijutsu_jhs.pdf" },
+        { "label": "高校（音楽）", "pdfFile": "goal_ongaku_hs.pdf" },
+        { "label": "高校（美術）", "pdfFile": "goal_bijutsu_hs.pdf" },
+        { "label": "高校（書道）", "pdfFile": "goal_shodo_hs.pdf" }
+      ]
+    },
+    {
+      "id": "gijutsu",
+      "name": "技術・家庭科",
+      "icon": "ti-tool",
+      "options": [
+        { "label": "中学", "pdfFile": "goal_gijutsu_jhs.pdf" },
+        { "label": "高校（家庭科）", "pdfFile": "goal_katei_hs.pdf" }
+      ]
+    },
+    {
+      "id": "joho",
+      "name": "情報科",
+      "icon": "ti-device-laptop",
+      "options": [
+        { "label": "高校", "pdfFile": "goal_joho_hs.pdf" }
+      ]
+    }
+  ]
+}
