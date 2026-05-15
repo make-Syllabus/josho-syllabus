@@ -3,7 +3,7 @@
     {
       "id": "c-jhs",
       "school": "中学校",
-      "type": "教育課程表",
+      "type": "カリキュラム配当表",
       "label": "中1〜中3",
       "pdfFile": "curriculum_jhs.pdf"
     },
@@ -17,108 +17,103 @@
   ],
   "evaluation": [
     {
-      "id": "e-jhs",
-      "school": "中学校",
+      "id": "e-common",
+      "school": "中学校・高等学校",
       "type": "学習評価",
-      "label": "評価の観点・方針",
-      "pdfFile": "evaluation_jhs.pdf"
-    },
-    {
-      "id": "e-hs",
-      "school": "高等学校",
-      "type": "学習評価",
-      "label": "評価の観点・方針",
-      "pdfFile": "evaluation_hs.pdf"
+      "label": "中高共通",
+      "pdfFile": "evaluation_common.pdf"
     }
   ],
   "subjects": [
     {
-      "id": "kokugo",
-      "name": "国語",
-      "goals": [
-        "生涯にわたる社会生活に必要な国語の知識や技能を習得する",
-        "論理的に思考し自分の考えを的確に表現する力を養う",
-        "言語文化への理解を深め、言葉を通じて他者や社会と関わる態度を育てる"
-      ],
-      "eval": ["定期テスト", "朝礼テスト", "グループワーク", "プレゼンテーション", "ノート・レポート"],
-      "pdfFile": "goal_kokugo.pdf"
+      "id": "kokugo-jhs",
+      "name": "国語（中学）",
+      "school": "中学校",
+      "pdfFile": "goal_kokugo_jhs.pdf"
     },
     {
-      "id": "sugaku",
-      "name": "数学",
-      "goals": [
-        "数学的な見方・考え方を身につける",
-        "事象を数学的に考察・処理し、問題を解決する力を養う",
-        "数学のよさを認識し、主体的に問題解決に取り組む態度を育てる"
-      ],
-      "eval": ["定期テスト", "小テスト", "問題解決課題", "レポート", "ノート提出"],
-      "pdfFile": ""
+      "id": "kokugo-hs",
+      "name": "国語（高校）",
+      "school": "高等学校",
+      "pdfFile": "goal_kokugo_hs.pdf"
     },
     {
-      "id": "eigo",
-      "name": "英語",
-      "goals": [
-        "英語を通じて情報や考えを的確に理解・伝達する力を養う",
-        "英語の運用能力（聞く・話す・読む・書く）を総合的に高める",
-        "異文化への理解と国際的な視野を広げる"
-      ],
-      "eval": ["定期テスト", "単語テスト", "スピーチ", "ライティング課題", "授業参加"],
-      "pdfFile": ""
+      "id": "sugaku-jhs",
+      "name": "数学（中学）",
+      "school": "中学校",
+      "pdfFile": "goal_sugaku_jhs.pdf"
     },
     {
-      "id": "rika",
-      "name": "理科",
-      "goals": [
-        "自然の事物・現象に関する概念や原理を理解する",
-        "観察・実験を通じて科学的に探究する力を養う",
-        "自然を愛する心情と科学的な態度を育てる"
-      ],
-      "eval": ["定期テスト", "実験レポート", "考察問題", "グループ実験"],
-      "pdfFile": ""
+      "id": "sugaku-hs",
+      "name": "数学（高校）",
+      "school": "高等学校",
+      "pdfFile": "goal_sugaku_hs.pdf"
     },
     {
-      "id": "shakai",
-      "name": "社会",
-      "goals": [
-        "地理・歴史・公民の各分野の知識を体系的に習得する",
-        "社会的な見方・考え方を身につけ、現代社会の課題を考察する",
-        "主権者として社会に参画する態度を育てる"
-      ],
-      "eval": ["定期テスト", "レポート", "ディスカッション", "時事問題への取り組み"],
-      "pdfFile": ""
+      "id": "eigo-jhs",
+      "name": "英語（中学）",
+      "school": "中学校",
+      "pdfFile": "goal_eigo_jhs.pdf"
     },
     {
-      "id": "taiiku",
-      "name": "体育",
-      "goals": [
-        "運動の合理的・計画的な実践を通じて体力の向上を図る",
-        "各種スポーツの技能を高め、生涯スポーツの基礎を養う",
-        "協調性・フェアプレー精神を育む"
-      ],
-      "eval": ["技能テスト", "実技への取り組み", "安全への配慮", "積極的な参加"],
-      "pdfFile": ""
+      "id": "eigo-hs",
+      "name": "英語（高校）",
+      "school": "高等学校",
+      "pdfFile": "goal_eigo_hs.pdf"
     },
     {
-      "id": "geijutsu",
-      "name": "芸術",
-      "goals": [
-        "芸術の各分野における表現・鑑賞の能力を高める",
-        "創造的な表現を通じて豊かな感性を育む",
-        "芸術文化に対する理解と愛好心を養う"
-      ],
-      "eval": ["実技課題", "作品評価", "鑑賞レポート", "授業参加"],
-      "pdfFile": ""
+      "id": "rika-jhs",
+      "name": "理科（中学）",
+      "school": "中学校",
+      "pdfFile": "goal_rika_jhs.pdf"
     },
     {
-      "id": "joho",
-      "name": "情報",
-      "goals": [
-        "情報社会の仕組みと課題を理解し、情報を活用する力を養う",
-        "プログラミングやデータ分析の基礎を習得する",
-        "情報モラルと情報セキュリティへの意識を高める"
-      ],
-      "eval": ["定期テスト", "プログラミング課題", "レポート", "情報モラルの実践"],
-      "pdfFile": ""
+      "id": "rika-hs",
+      "name": "理科（高校）",
+      "school": "高等学校",
+      "pdfFile": "goal_rika_hs.pdf"
+    },
+    {
+      "id": "shakai-jhs",
+      "name": "社会（中学）",
+      "school": "中学校",
+      "pdfFile": "goal_shakai_jhs.pdf"
+    },
+    {
+      "id": "shakai-hs",
+      "name": "社会（高校）",
+      "school": "高等学校",
+      "pdfFile": "goal_shakai_hs.pdf"
+    },
+    {
+      "id": "taiiku-jhs",
+      "name": "体育（中学）",
+      "school": "中学校",
+      "pdfFile": "goal_taiiku_jhs.pdf"
+    },
+    {
+      "id": "taiiku-hs",
+      "name": "体育（高校）",
+      "school": "高等学校",
+      "pdfFile": "goal_taiiku_hs.pdf"
+    },
+    {
+      "id": "geijutsu-jhs",
+      "name": "芸術（中学）",
+      "school": "中学校",
+      "pdfFile": "goal_geijutsu_jhs.pdf"
+    },
+    {
+      "id": "geijutsu-hs",
+      "name": "芸術（高校）",
+      "school": "高等学校",
+      "pdfFile": "goal_geijutsu_hs.pdf"
+    },
+    {
+      "id": "joho-hs",
+      "name": "情報（高校）",
+      "school": "高等学校",
+      "pdfFile": "goal_joho_hs.pdf"
     }
   ]
 }
