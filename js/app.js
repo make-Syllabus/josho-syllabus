@@ -133,7 +133,7 @@ function renderDocSection(containerId, docs) {
   el.innerHTML = docs.map(doc => `
     <div class="doc-card" onclick="openDocModal('${escHtml(doc.school)}', '${escHtml(doc.type)}', '${escHtml(doc.pdfFile)}')">
       <div class="doc-icon" style="background:var(--color-sugaku);color:var(--color-sugaku-fg);">
-        <i class="ti ${doc.type === '教育課程表' ? 'ti-file-spreadsheet' : 'ti-file-check'}" aria-hidden="true"></i>
+        <i class="ti ${doc.type === '学習評価' ? 'ti-file-check' : 'ti-file-spreadsheet'}" aria-hidden="true"></i>
       </div>
       <div class="doc-body">
         <div class="doc-title">${escHtml(doc.school)}</div>
