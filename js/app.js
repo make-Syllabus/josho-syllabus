@@ -194,7 +194,7 @@ window.openSubjectModal = function(subjectId) {
   const subjects = curriculumData.subjects || [];
   const s = subjects.find(x => x.id === subjectId);
   if (!s) return;
-  const style = SUBJECT_STYLE[s.name] || { cls: 'color-joho', fg: 'color-joho-fg', icon: 'ti-file' };
+  const style = SUBJECT_STYLE[s.name.replace(/（.*）/, '')] || { cls: 'color-joho', fg: 'color-joho-fg', icon: 'ti-file' };
 
   openModal(`
     <div class="modal-head">
@@ -202,28 +202,22 @@ window.openSubjectModal = function(subjectId) {
         <h2>
           <span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:6px;background:var(--${style.cls});color:var(--${style.fg});font-size:13px;vertical-align:-6px;margin-right:7px;">
             <i class="ti ${style.icon}" aria-hidden="true"></i>
-          </span>${escHtml(s.name)}　教科の目標
+          </span>${escHtml(s.name)}
         </h2>
       </div>
       <button class="modal-close-btn" onclick="closeModal()" aria-label="閉じる"><i class="ti ti-x" aria-hidden="true"></i></button>
     </div>
     <div class="modal-body">
-      <div class="m-section-label">目標</div>
-      <ul class="m-goal-list">${s.goals.map(g => `<li>${escHtml(g)}</li>`).join('')}</ul>
-      <div class="m-section-label">主な評価方法</div>
-      <div class="m-chips">${s.eval.map(e => `<span class="m-chip">${escHtml(e)}</span>`).join('')}</div>
-      ${s.pdfFile ? `
-        <div class="m-pdf-area">
-          <i class="ti ti-file-type-pdf" aria-hidden="true"></i>
-          <p>${escHtml(s.name)}の詳細PDFがここに表示されます。</p>
-          <button class="m-pdf-btn" onclick="window.open('pdf/${escHtml(s.pdfFile)}','_blank')">
-            <i class="ti ti-file-description" aria-hidden="true"></i>詳細を見る
-          </button>
-        </div>` : ''}
+      <div class="m-pdf-area">
+        <i class="ti ti-file-type-pdf" aria-hidden="true"></i>
+        <p>PDFファイルを <code>pdf/${escHtml(s.pdfFile)}</code> に配置してください。</p>
+        <button class="m-pdf-btn" onclick="window.open('pdf/${escHtml(s.pdfFile)}','_blank')">
+          <i class="ti ti-file-description" aria-hidden="true"></i>詳細を見る
+        </button>
+      </div>
     </div>
   `);
 };
-
 // ===== シラバスページ =====
 function renderSyllabusPage() {
   // フィルターのイベント設定（初回のみ）
