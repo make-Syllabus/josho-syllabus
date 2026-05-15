@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>常翔学園中学校高等学校 2026年度シラバス</title>
+  <meta name="description" content="常翔学園中学校高等学校の2026年度シラバス・教育課程を公開しています。">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600&family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tabler Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ===== ナビゲーション ===== -->
+<nav class="site-nav">
+  <div class="nav-logo">常翔学園</div>
+  <div class="nav-links" id="nav-links">
+    <a href="#home"       data-page="home"       class="active">ホーム</a>
+    <a href="#curriculum" data-page="curriculum">教育課程・目標</a>
+    <a href="#syllabus"   data-page="syllabus">シラバス</a>
+  </div>
+  <button class="nav-toggle" id="nav-toggle" aria-label="メニュー"><i class="ti ti-menu-2"></i></button>
+</nav>
+
+<!-- ===== グローバルモーダル ===== -->
+<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-label="詳細">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- ========================================
+     PAGE: HOME
+     ======================================== -->
+<div class="page active" id="page-home">
+
+  <div class="hero">
+    <p class="hero-school">常翔学園中学校高等学校</p>
+    <h1 class="hero-title"><span>シ</span>ラ<span>バ</span>ス</h1>
+    <p class="hero-year">2026年度</p>
+    <p class="hero-scroll">SCROLL<span class="hero-scroll-arrow"></span></p>
+  </div>
+
+  <div class="home-section">
+    <p class="home-section-label">Founding Spirit</p>
+    <h2 class="home-section-title">建学の精神</h2>
+    <div class="home-section-body">
+      <p>ここに建学の精神のテキストを入力してください。</p>
+    </div>
+  </div>
+
+  <div class="home-section">
+    <p class="home-section-label">Educational Philosophy</p>
+    <h2 class="home-section-title">教育の理念</h2>
+    <div class="home-section-body">
+      <p>ここに教育の理念のテキストを入力してください。</p>
+    </div>
+  </div>
+
+  <div class="home-section">
+    <p class="home-section-label">School Policy</p>
+    <h2 class="home-section-title">スクールポリシー</h2>
+    <div class="home-section-body">
+      <p>ここにスクールポリシーのテキストを入力してください。</p>
+      <p>アドミッション・ポリシー、カリキュラム・ポリシー、グラデュエーション・ポリシーなど各ポリシーの内容をご記載ください。</p>
+    </div>
+  </div>
+
+  <div class="nav-cards">
+    <div class="nav-card" data-page="curriculum" style="cursor:pointer;">
+      <div class="nav-card-icon" style="background:var(--color-rika);color:var(--color-rika-fg);">
+        <i class="ti ti-file-text" aria-hidden="true"></i>
+      </div>
+      <div class="nav-card-title">教育課程・目標</div>
+      <div class="nav-card-desc">教育課程表・学習評価・各教科の目標をご覧いただけます。</div>
+      <div class="nav-card-arrow"><i class="ti ti-arrow-right" aria-hidden="true"></i> 詳細を見る</div>
+    </div>
+    <div class="nav-card" data-page="syllabus" style="cursor:pointer;">
+      <div class="nav-card-icon" style="background:var(--color-eigo);color:var(--color-eigo-fg);">
+        <i class="ti ti-search" aria-hidden="true"></i>
+      </div>
+      <div class="nav-card-title">シラバス検索</div>
+      <div class="nav-card-desc">学年・コース・教科を選んで各授業のシラバスを検索できます。</div>
+      <div class="nav-card-arrow"><i class="ti ti-arrow-right" aria-hidden="true"></i> 検索する</div>
+    </div>
+  </div>
+
+  <footer style="text-align:center;padding:2rem;font-size:12px;color:var(--color-muted);border-top:1px solid var(--color-border);">
+    © 2026 常翔学園中学校高等学校
+  </footer>
+</div>
+
+<!-- ========================================
+     PAGE: 教育課程・目標
+     ======================================== -->
+<div class="page" id="page-curriculum">
+  <div class="page-header">
+    <p class="page-header-label">Curriculum</p>
+    <h1>教育課程・目標</h1>
+  </div>
+
+  <div class="page-content">
+
+    <div class="section-group">
+      <div class="section-group-title">
+        <i class="ti ti-table" aria-hidden="true"></i>教育課程表
+      </div>
+      <div class="doc-grid" id="curriculum-docs"></div>
+    </div>
+
+    <div class="section-group">
+      <div class="section-group-title">
+        <i class="ti ti-clipboard-check" aria-hidden="true"></i>学習評価
+      </div>
+      <div class="doc-grid" id="evaluation-docs"></div>
+    </div>
+
+    <div class="section-group">
+      <div class="section-group-title">
+        <i class="ti ti-target" aria-hidden="true"></i>各教科の目標
+      </div>
+      <div class="subject-grid" id="subject-grid"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========================================
+     PAGE: シラバス
+     ======================================== -->
+<div class="page" id="page-syllabus">
+  <div class="page-header">
+    <p class="page-header-label">Syllabus 2026</p>
+    <h1>シラバス検索</h1>
+  </div>
+
+  <div class="filter-bar">
+    <div class="filter-group">
+      <label for="sel-grade">学年</label>
+      <select id="sel-grade">
+        <option value="">すべて</option>
+        <optgroup label="中学校">
+          <option value="中1">中1</option>
+          <option value="中2">中2</option>
+          <option value="中3">中3</option>
+        </optgroup>
+        <optgroup label="高等学校">
+          <option value="高1">高1</option>
+          <option value="高2">高2</option>
+          <option value="高3">高3</option>
+        </optgroup>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="sel-course">コース</label>
+      <select id="sel-course">
+        <option value="">すべて</option>
+        <option value="スーパーコース">スーパーコース</option>
+        <option value="一貫コース">一貫コース</option>
+        <option value="特進コース">特進コース</option>
+        <option value="文理コース">文理コース</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="sel-subject">教科</label>
+      <select id="sel-subject">
+        <option value="">すべて</option>
+        <option value="国語">国語</option>
+        <option value="数学">数学</option>
+        <option value="英語">英語</option>
+        <option value="理科">理科</option>
+        <option value="社会">社会</option>
+        <option value="体育">体育</option>
+        <option value="芸術">芸術</option>
+        <option value="情報">情報</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="syllabus-results">
+    <span id="result-count"></span>
+    <span id="page-info"></span>
+  </div>
+
+  <div class="card-list" id="card-list"></div>
+  <div class="pagination" id="pagination"></div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
