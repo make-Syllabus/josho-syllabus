@@ -149,11 +149,10 @@ function renderSubjectGrid() {
   if (!el) return;
   const subjects = curriculumData.subjects || [];
   el.innerHTML = subjects.map(s => {
-    const style = SUBJECT_STYLE[s.name] || { cls: 'color-joho', fg: 'color-joho-fg', icon: 'ti-file' };
     return `
       <div class="subj-card" onclick="openSubjectModal('${escHtml(s.id)}')">
-        <div class="subj-icon" style="background:var(--${style.cls});color:var(--${style.fg});">
-          <i class="ti ${style.icon}" aria-hidden="true"></i>
+        <div class="subj-icon" style="background:var(--color-${s.id === 'kokugo' ? 'kokugo' : s.id === 'sugaku' ? 'sugaku' : s.id === 'eigo' ? 'eigo' : s.id === 'rika' ? 'rika' : s.id === 'shakai' ? 'shakai' : s.id === 'taiiku' ? 'taiiku' : s.id === 'geijutsu' ? 'geijutsu' : 'joho'});color:var(--color-${s.id === 'kokugo' ? 'kokugo' : s.id === 'sugaku' ? 'sugaku' : s.id === 'eigo' ? 'eigo' : s.id === 'rika' ? 'rika' : s.id === 'shakai' ? 'shakai' : s.id === 'taiiku' ? 'taiiku' : s.id === 'geijutsu' ? 'geijutsu' : 'joho'}-fg);">
+          <i class="ti ${escHtml(s.icon)}" aria-hidden="true"></i>
         </div>
         <div class="subj-label">${escHtml(s.name)}</div>
         <div class="subj-detail">詳細を見る</div>
@@ -194,30 +193,42 @@ window.openSubjectModal = function(subjectId) {
   const subjects = curriculumData.subjects || [];
   const s = subjects.find(x => x.id === subjectId);
   if (!s) return;
-  const style = SUBJECT_STYLE[s.name.replace(/（.*）/, '')] || { cls: 'color-joho', fg: 'color-joho-fg', icon: 'ti-file' };
+
+  const colorMap = {
+    kokugo:'kokugo', sugaku:'sugaku', eigo:'eigo', rika:'rika',
+    shakai:'shakai', taiiku:'taiiku', geijutsu:'geijutsu', joho:'joho',
+    gijutsu:'joho'
+  };
+  const c = colorMap[s.id] || 'joho';
+
+  const optionsHtml = s.options.length === 1
+    ? `<button class="m-pdf-btn" onclick="window.open('pdf/${escHtml(s.options[0].pdfFile)}','_blank')">
+        <i class="ti ti-file-description" aria-hidden="true"></i>詳細を見る
+       </button>`
+    : s.options.map(opt => `
+        <button class="m-pdf-btn" style="margin-top:0.75rem;" onclick="window.open('pdf/${escHtml(opt.pdfFile)}','_blank')">
+          <i class="ti ti-file-description" aria-hidden="true"></i>${escHtml(opt.label)}
+        </button>`).join('');
 
   openModal(`
     <div class="modal-head">
       <div>
         <h2>
-          <span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:6px;background:var(--${style.cls});color:var(--${style.fg});font-size:13px;vertical-align:-6px;margin-right:7px;">
-            <i class="ti ${style.icon}" aria-hidden="true"></i>
-          </span>${escHtml(s.name)}
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:6px;background:var(--color-${c});color:var(--color-${c}-fg);font-size:13px;vertical-align:-6px;margin-right:7px;">
+            <i class="ti ${escHtml(s.icon)}" aria-hidden="true"></i>
+          </span>${escHtml(s.name)}　教科の目標
         </h2>
       </div>
       <button class="modal-close-btn" onclick="closeModal()" aria-label="閉じる"><i class="ti ti-x" aria-hidden="true"></i></button>
     </div>
     <div class="modal-body">
-      <div class="m-pdf-area">
-        <i class="ti ti-file-type-pdf" aria-hidden="true"></i>
-        <p>PDFファイルを <code>pdf/${escHtml(s.pdfFile)}</code> に配置してください。</p>
-        <button class="m-pdf-btn" onclick="window.open('pdf/${escHtml(s.pdfFile)}','_blank')">
-          <i class="ti ti-file-description" aria-hidden="true"></i>詳細を見る
-        </button>
+      <div style="display:flex;flex-direction:column;gap:0;">
+        ${optionsHtml}
       </div>
     </div>
   `);
 };
+
 // ===== シラバスページ =====
 function renderSyllabusPage() {
   // フィルターのイベント設定（初回のみ）
