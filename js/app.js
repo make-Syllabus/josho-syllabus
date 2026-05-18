@@ -2,31 +2,43 @@
 
 // ===== 定数 =====
 const PER_PAGE = 10;
-const ALL_COURSES = ['スーパーコース', '一貫コース', '特進コース', '文理コース'];
-
-const SUBJECT_STYLE = {
-  '国語': { cls: 'color-kokugo',   fg: 'color-kokugo-fg',   icon: 'ti-book-2' },
-  '数学': { cls: 'color-sugaku',   fg: 'color-sugaku-fg',   icon: 'ti-math-function' },
-  '英語': { cls: 'color-eigo',     fg: 'color-eigo-fg',     icon: 'ti-language' },
-  '理科': { cls: 'color-rika',     fg: 'color-rika-fg',     icon: 'ti-flask' },
-  '社会': { cls: 'color-shakai',   fg: 'color-shakai-fg',   icon: 'ti-building-bank' },
-  '体育': { cls: 'color-taiiku',   fg: 'color-taiiku-fg',   icon: 'ti-run' },
-  '芸術': { cls: 'color-geijutsu', fg: 'color-geijutsu-fg', icon: 'ti-palette' },
-  '情報': { cls: 'color-joho',     fg: 'color-joho-fg',     icon: 'ti-device-laptop' },
-};
 
 // ===== 状態 =====
 let syllabusData = [];
 let curriculumData = {};
+let configData = {};
 let filteredData = [];
 let currentPage = 1;
 
+// ===== config から動的に生成 =====
+function getSubjectStyle(subjectName) {
+  const subjects = configData.subjects || [];
+  const s = subjects.find(x => x.name === subjectName);
+  if (!s) return { cls: 'color-joho', fg: 'color-joho-fg', icon: 'ti-file' };
+  return { cls: `color-${s.color}`, fg: `color-${s.color}-fg`, icon: s.icon };
+}
+
+function getAllCourseNames() {
+  return (configData.courses || []).map(c => c.name);
+}
+
 // ===== 初期化 =====
 async function init() {
-  await Promise.all([loadSyllabus(), loadCurriculum()]);
+  await Promise.all([loadConfig(), loadSyllabus(), loadCurriculum()]);
+  buildFilters();
   setupNav();
   setupModal();
   navigateTo(getPageFromHash() || 'home');
+}
+
+async function loadConfig() {
+  try {
+    const res = await fetch('data/config.json');
+    configData = await res.json();
+  } catch (e) {
+    console.warn('config.json の読み込み失敗:', e);
+    configData = {};
+  }
 }
 
 async function loadSyllabus() {
@@ -47,6 +59,51 @@ async function loadCurriculum() {
     console.warn('curriculum.json の読み込み失敗:', e);
     curriculumData = {};
   }
+}
+
+// ===== フィルター動的生成 =====
+function buildFilters() {
+  buildGradeFilter();
+  buildCourseFilter();
+  buildSubjectFilter();
+}
+
+function buildGradeFilter() {
+  const sel = document.getElementById('sel-grade');
+  if (!sel) return;
+  const grades = configData.grades || [];
+  const jhs = grades.filter(g => g.school === '中学校');
+  const hs  = grades.filter(g => g.school === '高等学校');
+  sel.innerHTML = `<option value="">すべて</option>`;
+  if (jhs.length) {
+    sel.innerHTML += `<optgroup label="中学校">${jhs.map(g => `<option value="${g.id}">${g.label}</option>`).join('')}</optgroup>`;
+  }
+  if (hs.length) {
+    sel.innerHTML += `<optgroup label="高等学校">${hs.map(g => `<option value="${g.id}">${g.label}</option>`).join('')}</optgroup>`;
+  }
+}
+
+function buildCourseFilter() {
+  const sel = document.getElementById('sel-course');
+  if (!sel) return;
+  const courses = configData.courses || [];
+  const jhs = courses.filter(c => c.school === '中学校');
+  const hs  = courses.filter(c => c.school === '高等学校');
+  sel.innerHTML = `<option value="">すべて</option>`;
+  if (jhs.length) {
+    sel.innerHTML += `<optgroup label="中学校">${jhs.map(c => `<option value="${escHtml(c.name)}">${escHtml(c.name)}</option>`).join('')}</optgroup>`;
+  }
+  if (hs.length) {
+    sel.innerHTML += `<optgroup label="高等学校">${hs.map(c => `<option value="${escHtml(c.name)}">${escHtml(c.name)}</option>`).join('')}</optgroup>`;
+  }
+}
+
+function buildSubjectFilter() {
+  const sel = document.getElementById('sel-subject');
+  if (!sel) return;
+  const subjects = configData.subjects || [];
+  sel.innerHTML = `<option value="">すべて</option>` +
+    subjects.map(s => `<option value="${escHtml(s.name)}">${escHtml(s.name)}</option>`).join('');
 }
 
 // ===== ナビゲーション =====
@@ -89,7 +146,6 @@ function navigateTo(pageId) {
     applyFilter();
   }
 
-  // モバイルメニューを閉じる
   document.getElementById('nav-links')?.classList.remove('open');
 }
 
@@ -116,9 +172,6 @@ function closeModal() {
 }
 
 window.closeModal = closeModal;
-
-// ===== HOME =====
-// nav-card や hero ボタンはHTMLに data-page 属性で設定済み
 
 // ===== 教育課程ページ =====
 function renderCurriculumPage() {
@@ -149,10 +202,11 @@ function renderSubjectGrid() {
   if (!el) return;
   const subjects = curriculumData.subjects || [];
   el.innerHTML = subjects.map(s => {
+    const style = getSubjectStyle(s.name);
     return `
       <div class="subj-card" onclick="openSubjectModal('${escHtml(s.id)}')">
-        <div class="subj-icon" style="background:var(--color-${s.id === 'kokugo' ? 'kokugo' : s.id === 'sugaku' ? 'sugaku' : s.id === 'eigo' ? 'eigo' : s.id === 'rika' ? 'rika' : s.id === 'shakai' ? 'shakai' : s.id === 'taiiku' ? 'taiiku' : s.id === 'geijutsu' ? 'geijutsu' : 'joho'});color:var(--color-${s.id === 'kokugo' ? 'kokugo' : s.id === 'sugaku' ? 'sugaku' : s.id === 'eigo' ? 'eigo' : s.id === 'rika' ? 'rika' : s.id === 'shakai' ? 'shakai' : s.id === 'taiiku' ? 'taiiku' : s.id === 'geijutsu' ? 'geijutsu' : 'joho'}-fg);">
-          <i class="ti ${escHtml(s.icon)}" aria-hidden="true"></i>
+        <div class="subj-icon" style="background:var(--${style.cls});color:var(--${style.fg});">
+          <i class="ti ${style.icon}" aria-hidden="true"></i>
         </div>
         <div class="subj-label">${escHtml(s.name)}</div>
         <div class="subj-detail">詳細を見る</div>
@@ -229,7 +283,6 @@ window.openSubjectModal = function(subjectId) {
 
 // ===== シラバスページ =====
 function renderSyllabusPage() {
-  // フィルターのイベント設定（初回のみ）
   ['sel-grade', 'sel-course', 'sel-subject'].forEach(id => {
     const el = document.getElementById(id);
     if (el && !el.dataset.bound) {
@@ -289,7 +342,7 @@ function renderCards() {
 }
 
 function buildCardHtml(d) {
-  const s = SUBJECT_STYLE[d.subject] || { cls: 'color-joho', fg: 'color-joho-fg', icon: 'ti-file' };
+  const s = getSubjectStyle(d.subject);
   const courseBadges = buildCourseBadges(d);
   const subBadges = buildSubBadges(d.sub);
   return `
@@ -302,7 +355,7 @@ function buildCardHtml(d) {
         <div class="s-card-title">${escHtml(d.title)}</div>
         <div class="s-card-meta">
           <span>${escHtml(d.subject)}</span>
-          <span><i class="ti ti-clock" style="font-size:12px;vertical-align:-1px;margin-right:2px;" aria-hidden="true"></i>週${d.units}時間</span>
+          ${d.units ? `<span><i class="ti ti-clock" style="font-size:12px;vertical-align:-1px;margin-right:2px;" aria-hidden="true"></i>週${d.units}時間</span>` : ''}
         </div>
       </div>
       <div class="s-card-right">
@@ -323,8 +376,8 @@ function buildCourseBadges(d) {
 function buildSubBadges(sub) {
   if (!sub) return '';
   const parts = [];
-  if (sub.track === '文系')      parts.push(`<span class="badge badge-bunkei">文系</span>`);
-  else if (sub.track === '理系') parts.push(`<span class="badge badge-rikei">理系</span>`);
+  if (sub.track === '文系')          parts.push(`<span class="badge badge-bunkei">文系</span>`);
+  else if (sub.track === '理系')     parts.push(`<span class="badge badge-rikei">理系</span>`);
   else if (sub.track === '文理共通') parts.push(`<span class="badge badge-kyotsuu">文理共通</span>`);
   (sub.classes || []).forEach(c => parts.push(`<span class="badge badge-class">${escHtml(c)}組</span>`));
   return parts.join('');
@@ -333,7 +386,7 @@ function buildSubBadges(sub) {
 window.openSyllabusModal = function(id) {
   const d = syllabusData.find(x => x.id === id);
   if (!d) return;
-  const s = SUBJECT_STYLE[d.subject] || { cls: 'color-joho', fg: 'color-joho-fg', icon: 'ti-file' };
+  const s = getSubjectStyle(d.subject);
   const subBadges = buildSubBadges(d.sub);
   const courseBadges = buildCourseBadges(d);
 
@@ -348,47 +401,47 @@ window.openSyllabusModal = function(id) {
         <div class="meta">
           <span class="badge badge-grade">${escHtml(d.grade)}</span>
           ${courseBadges}${subBadges}
-          <span style="font-size:11px;color:var(--color-muted);">週${d.units}時間</span>
+          ${d.units ? `<span style="font-size:11px;color:var(--color-muted);">週${d.units}時間</span>` : ''}
         </div>
       </div>
       <button class="modal-close-btn" onclick="closeModal()" aria-label="閉じる"><i class="ti ti-x" aria-hidden="true"></i></button>
     </div>
     <div class="modal-body">
-      <div class="m-section-label">学習の到達目標</div>
-      <ul class="m-goal-list">${(d.goals || []).map(g => `<li>${escHtml(g)}</li>`).join('')}</ul>
-
-      <div class="m-section-label">評価方法</div>
-      <div class="m-eval-grid">
-        <div class="m-eval-card">
-          <div class="m-eval-label">知識・技能</div>
-          <div class="m-eval-value">${escHtml(d.eval?.knowledge || '')}</div>
-        </div>
-        <div class="m-eval-card">
-          <div class="m-eval-label">思考・判断・表現</div>
-          <div class="m-eval-value">${escHtml(d.eval?.thinking || '')}</div>
-        </div>
-        <div class="m-eval-card" style="grid-column:1/-1;">
-          <div class="m-eval-label">主体的に学習に取り組む態度</div>
-          <div class="m-eval-value">${escHtml(d.eval?.attitude || '')}</div>
-        </div>
-      </div>
-
-      <div class="m-section-label">使用教科書</div>
-      <p style="font-size:13px;line-height:1.7;">${escHtml(d.textbook || '')}</p>
-      ${d.materials ? `<p style="font-size:12px;color:var(--color-muted);margin-top:4px;">${escHtml(d.materials)}</p>` : ''}
-
-      <div class="m-section-label">年間授業計画</div>
-      <table class="m-plan-table">
-        <thead><tr><th>学期</th><th>単元・内容</th><th style="text-align:right;">時数</th></tr></thead>
-        <tbody>${(d.plan || []).map(p => `
-          <tr>
-            <td><span class="m-term-badge">${escHtml(p.term)}</span></td>
-            <td>${escHtml(p.unit)}</td>
-            <td style="text-align:right;color:var(--color-muted);">${p.weeks}h</td>
-          </tr>`).join('')}
-        </tbody>
-      </table>
-
+      ${d.goals && d.goals.length ? `
+        <div class="m-section-label">学習の到達目標</div>
+        <ul class="m-goal-list">${d.goals.map(g => `<li>${escHtml(g)}</li>`).join('')}</ul>` : ''}
+      ${d.eval ? `
+        <div class="m-section-label">評価方法</div>
+        <div class="m-eval-grid">
+          <div class="m-eval-card">
+            <div class="m-eval-label">知識・技能</div>
+            <div class="m-eval-value">${escHtml(d.eval.knowledge || '')}</div>
+          </div>
+          <div class="m-eval-card">
+            <div class="m-eval-label">思考・判断・表現</div>
+            <div class="m-eval-value">${escHtml(d.eval.thinking || '')}</div>
+          </div>
+          <div class="m-eval-card" style="grid-column:1/-1;">
+            <div class="m-eval-label">主体的に学習に取り組む態度</div>
+            <div class="m-eval-value">${escHtml(d.eval.attitude || '')}</div>
+          </div>
+        </div>` : ''}
+      ${d.textbook ? `
+        <div class="m-section-label">使用教科書</div>
+        <p style="font-size:13px;line-height:1.7;">${escHtml(d.textbook)}</p>
+        ${d.materials ? `<p style="font-size:12px;color:var(--color-muted);margin-top:4px;">${escHtml(d.materials)}</p>` : ''}` : ''}
+      ${d.plan && d.plan.length ? `
+        <div class="m-section-label">年間授業計画</div>
+        <table class="m-plan-table">
+          <thead><tr><th>学期</th><th>単元・内容</th><th style="text-align:right;">時数</th></tr></thead>
+          <tbody>${d.plan.map(p => `
+            <tr>
+              <td><span class="m-term-badge">${escHtml(p.term)}</span></td>
+              <td>${escHtml(p.unit)}</td>
+              <td style="text-align:right;color:var(--color-muted);">${p.weeks}h</td>
+            </tr>`).join('')}
+          </tbody>
+        </table>` : ''}
       ${d.pdfFile ? `
         <button class="m-pdf-btn" onclick="window.open('pdf/${escHtml(d.pdfFile)}','_blank')">
           <i class="ti ti-file-description" aria-hidden="true"></i>詳細を見る
@@ -448,9 +501,7 @@ function initFadeIn() {
   if (!sections.length) return;
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
   }, { threshold: 0.15 });
   sections.forEach(s => observer.observe(s));
