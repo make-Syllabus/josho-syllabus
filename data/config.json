@@ -1,0 +1,38 @@
+{
+  "grades": [
+    { "id": "中1", "label": "中1", "school": "中学校" },
+    { "id": "中2", "label": "中2", "school": "中学校" },
+    { "id": "中3", "label": "中3", "school": "中学校" },
+    { "id": "高1", "label": "高1", "school": "高等学校" },
+    { "id": "高2", "label": "高2", "school": "高等学校" },
+    { "id": "高3", "label": "高3", "school": "高等学校" }
+  ],
+  "courses": [
+    { "id": "super-j",    "name": "スーパーJコース",       "school": "中学校" },
+    { "id": "tokusin1",   "name": "特進Ⅰ類",              "school": "中学校" },
+    { "id": "tokusin2",   "name": "特進Ⅱ類",              "school": "中学校" },
+    { "id": "super",      "name": "スーパーコース",         "school": "高等学校" },
+    { "id": "ikkan",      "name": "一貫コース",             "school": "高等学校" },
+    { "id": "tokusin",    "name": "特進コース",             "school": "高等学校" },
+    { "id": "bunri",      "name": "文理コース",             "school": "高等学校" },
+    { "id": "athlete",    "name": "アスリートコース",        "school": "高等学校" },
+    { "id": "global",     "name": "グローバル探究コース",    "school": "高等学校" },
+    { "id": "yakugaku",   "name": "薬学看護医療系コース",    "school": "高等学校" }
+  ],
+  "tracks": [
+    { "id": "bunkei",   "label": "文系",     "fromGrade": "高2" },
+    { "id": "rikei",    "label": "理系",     "fromGrade": "高2" },
+    { "id": "kyotsuu",  "label": "文理共通", "fromGrade": "高2" }
+  ],
+  "subjects": [
+    { "id": "kokugo",   "name": "国語",         "icon": "ti-book-2",        "color": "kokugo" },
+    { "id": "sugaku",   "name": "数学",         "icon": "ti-math-function", "color": "sugaku" },
+    { "id": "eigo",     "name": "英語",         "icon": "ti-language",      "color": "eigo" },
+    { "id": "rika",     "name": "理科",         "icon": "ti-flask",         "color": "rika" },
+    { "id": "shakai",   "name": "社会",         "icon": "ti-building-bank", "color": "shakai" },
+    { "id": "taiiku",   "name": "保健体育",     "icon": "ti-run",           "color": "taiiku" },
+    { "id": "geijutsu", "name": "芸術",         "icon": "ti-palette",       "color": "geijutsu" },
+    { "id": "gijutsu",  "name": "技術・家庭科", "icon": "ti-tool",          "color": "joho" },
+    { "id": "joho",     "name": "情報",         "icon": "ti-device-laptop", "color": "joho" }
+  ]
+}
